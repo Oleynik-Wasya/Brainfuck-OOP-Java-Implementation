@@ -17,7 +17,7 @@ class BrainfuckCompilerTest {
 
     @BeforeEach
     void setUp() {
-        memory = new Memory();
+        memory = new MemoryImpl();
         brainfuckCompiler = new BrainfuckCompiler(memory);
     }
 
