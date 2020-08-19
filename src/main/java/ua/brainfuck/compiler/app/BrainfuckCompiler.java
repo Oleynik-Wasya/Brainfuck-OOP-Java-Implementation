@@ -1,6 +1,7 @@
 package ua.brainfuck.compiler.app;
 
 import ua.brainfuck.compiler.commands.*;
+import ua.brainfuck.compiler.factories.CommandFactoryImpl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -15,45 +16,18 @@ class BrainfuckCompiler {
     }
 
     List<Operation> compile(String brainFuckCode) throws IllegalStateException {
-        List<Operation> operations = new ArrayList<>();
         char[] brainFuckCodeAsChar = brainFuckCode.toCharArray();
 
         if (!checkBracketsValid(brainFuckCodeAsChar)) {
             throw new IllegalStateException("Unmatched brackets!");
         }
 
-        LinkedList<List<Operation>> stack = new LinkedList<>();
-        List<Operation> currentOperationsList = operations;
+        CommandFactoryImpl commandFactoryImpl = new CommandFactoryImpl();
         for (char c : brainFuckCodeAsChar) {
-            switch (c) {
-                case '>':
-                    currentOperationsList.add(new MoveToNextCell(memory));
-                    break;
-                case '<':
-                    currentOperationsList.add(new MoveToPrevCell(memory));
-                    break;
-                case '+':
-                    currentOperationsList.add(new IncrementCurrentCell(memory));
-                    break;
-                case '-':
-                    currentOperationsList.add(new DecrementCurrentCell(memory));
-                    break;
-                case '.':
-                    currentOperationsList.add(new GetCurrentChar(memory));
-                    break;
-                case '[':
-                    stack.addFirst(currentOperationsList);
-                    currentOperationsList = new ArrayList<>();
-                    stack.peekFirst().add(new Loop(memory, currentOperationsList));
-                    break;
-                case ']':
-                    currentOperationsList = stack.pollFirst();
-                    break;
-                default:
-                    throw new IllegalStateException("Syntax error!");
-            }
+            commandFactoryImpl.addCommand(c);
         }
-        return operations;
+
+        return commandFactoryImpl.getOperations();
     }
 
     String run(List<Operation> operations) {
@@ -63,7 +37,7 @@ class BrainfuckCompiler {
         System.setOut(ps);
 
         for (Operation operation : operations) {
-            operation.execute();
+            operation.execute(memory);
         }
 
         System.out.flush();
@@ -87,5 +61,4 @@ class BrainfuckCompiler {
         }
         return k == 0;
     }
-
 }
