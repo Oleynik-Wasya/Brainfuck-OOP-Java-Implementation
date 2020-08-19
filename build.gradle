@@ -1,34 +1,26 @@
-plugins {
-    id 'java'
-}
-
 group 'ua.team.dev.brainfuck'
 version '0.1'
+
+apply plugin: 'java'
+
+ext {
+   javaMainClass = "ua.brainfuck.compiler.app.App"
+}
+
+task run(type: JavaExec) {
+    group = "Execution"
+    description = "Run the main class with JavaExecTask"
+    classpath = sourceSets.main.runtimeClasspath
+    main = javaMainClass
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.2'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.3'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.0.3'
-}
-
-test {
-    useJUnitPlatform()
-
-    // Always run tests, even when nothing changed.
-    dependsOn 'cleanTest'
-
-    // Show test results.
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
 }
