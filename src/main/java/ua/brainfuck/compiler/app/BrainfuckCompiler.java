@@ -22,12 +22,12 @@ class BrainfuckCompiler {
             throw new IllegalStateException("Unmatched brackets!");
         }
 
-        CommandFactoryImpl commandFactoryImpl = new CommandFactoryImpl();
+        CommandFactory commandFactory = new CommandFactoryImpl();
         for (char c : brainFuckCodeAsChar) {
-            commandFactoryImpl.addCommand(c);
+            commandFactory.addCommand(c);
         }
 
-        return commandFactoryImpl.getOperations();
+        return commandFactory.getOperations();
     }
 
     String run(List<Operation> operations) {
