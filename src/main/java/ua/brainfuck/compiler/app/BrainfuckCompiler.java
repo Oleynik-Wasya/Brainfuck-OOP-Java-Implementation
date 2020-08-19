@@ -1,6 +1,7 @@
 package ua.brainfuck.compiler.app;
 
 import ua.brainfuck.compiler.commands.*;
+import ua.brainfuck.compiler.factories.CommandFactory;
 import ua.brainfuck.compiler.factories.CommandFactoryImpl;
 
 import java.io.ByteArrayOutputStream;
