@@ -10,4 +10,14 @@ public class IncrementCurrentCell implements Operation {
     public void execute(Memory memory) {
         memory.incrementCurrentCell();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof IncrementCurrentCell;
+    }
+
+    @Override
+    public int hashCode() {
+        return IncrementCurrentCell.class.hashCode();
+    }
 }

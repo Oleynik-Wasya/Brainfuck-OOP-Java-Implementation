@@ -11,4 +11,14 @@ public class MoveToNextCell implements Operation {
     public void execute(Memory memory) {
         memory.moveToNextCell();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof MoveToNextCell;
+    }
+
+    @Override
+    public int hashCode() {
+        return MoveToNextCell.class.hashCode();
+    }
 }

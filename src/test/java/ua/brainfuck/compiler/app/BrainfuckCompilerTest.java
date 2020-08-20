@@ -25,60 +25,60 @@ class BrainfuckCompilerTest {
     void compile() {
         String incrementInput = "++++";
         List<Operation> incrementOutput = new ArrayList<>();
-        incrementOutput.add(new IncrementCurrentCell(memory));
-        incrementOutput.add(new IncrementCurrentCell(memory));
-        incrementOutput.add(new IncrementCurrentCell(memory));
-        incrementOutput.add(new IncrementCurrentCell(memory));
+        incrementOutput.add(new IncrementCurrentCell());
+        incrementOutput.add(new IncrementCurrentCell());
+        incrementOutput.add(new IncrementCurrentCell());
+        incrementOutput.add(new IncrementCurrentCell());
 
         assertEquals(incrementOutput, brainfuckCompiler.compile(incrementInput));
 
         String decrementInput = "----";
         List<Operation> decrementOutput = new ArrayList<>();
-        decrementOutput.add(new DecrementCurrentCell(memory));
-        decrementOutput.add(new DecrementCurrentCell(memory));
-        decrementOutput.add(new DecrementCurrentCell(memory));
-        decrementOutput.add(new DecrementCurrentCell(memory));
+        decrementOutput.add(new DecrementCurrentCell());
+        decrementOutput.add(new DecrementCurrentCell());
+        decrementOutput.add(new DecrementCurrentCell());
+        decrementOutput.add(new DecrementCurrentCell());
 
         assertEquals(decrementOutput, brainfuckCompiler.compile(decrementInput));
 
         String currentCharInput = "....";
         List<Operation> currentCharOutput = new ArrayList<>();
-        currentCharOutput.add(new GetCurrentChar(memory));
-        currentCharOutput.add(new GetCurrentChar(memory));
-        currentCharOutput.add(new GetCurrentChar(memory));
-        currentCharOutput.add(new GetCurrentChar(memory));
+        currentCharOutput.add(new GetCurrentChar());
+        currentCharOutput.add(new GetCurrentChar());
+        currentCharOutput.add(new GetCurrentChar());
+        currentCharOutput.add(new GetCurrentChar());
 
         assertEquals(currentCharOutput, brainfuckCompiler.compile(currentCharInput));
 
         String moveToNextCellInput = ">>>>";
         List<Operation> moveToNextCellOutput = new ArrayList<>();
-        moveToNextCellOutput.add(new MoveToNextCell(memory));
-        moveToNextCellOutput.add(new MoveToNextCell(memory));
-        moveToNextCellOutput.add(new MoveToNextCell(memory));
-        moveToNextCellOutput.add(new MoveToNextCell(memory));
+        moveToNextCellOutput.add(new MoveToNextCell());
+        moveToNextCellOutput.add(new MoveToNextCell());
+        moveToNextCellOutput.add(new MoveToNextCell());
+        moveToNextCellOutput.add(new MoveToNextCell());
 
         assertEquals(moveToNextCellOutput, brainfuckCompiler.compile(moveToNextCellInput));
 
 
         String moveToPrevCellInput = "<<<<";
         List<Operation> moveToPrevCellOutput = new ArrayList<>();
-        moveToPrevCellOutput.add(new MoveToPrevCell(memory));
-        moveToPrevCellOutput.add(new MoveToPrevCell(memory));
-        moveToPrevCellOutput.add(new MoveToPrevCell(memory));
-        moveToPrevCellOutput.add(new MoveToPrevCell(memory));
+        moveToPrevCellOutput.add(new MoveToPrevCell());
+        moveToPrevCellOutput.add(new MoveToPrevCell());
+        moveToPrevCellOutput.add(new MoveToPrevCell());
+        moveToPrevCellOutput.add(new MoveToPrevCell());
 
         assertEquals(moveToPrevCellOutput, brainfuckCompiler.compile(moveToPrevCellInput));
 
         String loopInput = "[>+.-<]";
         List<Operation> loopOutput = new ArrayList<>();
         List<Operation> loopOperations = new ArrayList<>();
-        loopOperations.add(new MoveToNextCell(memory));
-        loopOperations.add(new IncrementCurrentCell(memory));
-        loopOperations.add(new GetCurrentChar(memory));
-        loopOperations.add(new DecrementCurrentCell(memory));
-        loopOperations.add(new MoveToPrevCell(memory));
+        loopOperations.add(new MoveToNextCell());
+        loopOperations.add(new IncrementCurrentCell());
+        loopOperations.add(new GetCurrentChar());
+        loopOperations.add(new DecrementCurrentCell());
+        loopOperations.add(new MoveToPrevCell());
 
-        loopOutput.add(new Loop(memory, loopOperations));
+        loopOutput.add(new Loop(loopOperations));
 
         assertEquals(loopOutput, brainfuckCompiler.compile(loopInput));
 
@@ -90,17 +90,17 @@ class BrainfuckCompilerTest {
         List<Operation> subLoop2Operations = new ArrayList<>();
         List<Operation> subLoop3Operations = new ArrayList<>();
 
-        subLoop1Operations.add(new MoveToNextCell(memory));
-        subLoop1Operations.add(new Loop(memory, subLoop2Operations));
-        subLoop1Operations.add(new MoveToPrevCell(memory));
+        subLoop1Operations.add(new MoveToNextCell());
+        subLoop1Operations.add(new Loop(subLoop2Operations));
+        subLoop1Operations.add(new MoveToPrevCell());
 
-        subLoop2Operations.add(new IncrementCurrentCell(memory));
-        subLoop2Operations.add(new Loop(memory, subLoop3Operations));
-        subLoop2Operations.add(new DecrementCurrentCell(memory));
+        subLoop2Operations.add(new IncrementCurrentCell());
+        subLoop2Operations.add(new Loop(subLoop3Operations));
+        subLoop2Operations.add(new DecrementCurrentCell());
 
-        subLoop3Operations.add(new GetCurrentChar(memory));
+        subLoop3Operations.add(new GetCurrentChar());
 
-        subLoopsOutput.add(new Loop(memory, subLoop1Operations));
+        subLoopsOutput.add(new Loop(subLoop1Operations));
 
         assertEquals(subLoopsOutput, brainfuckCompiler.compile(subLoopsInput));
     }

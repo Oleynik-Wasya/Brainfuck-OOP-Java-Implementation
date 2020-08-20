@@ -10,4 +10,14 @@ public class GetCurrentChar implements Operation {
     public void execute(Memory memory) {
         System.out.print(memory.getCurrentChar());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof GetCurrentChar;
+    }
+
+    @Override
+    public int hashCode() {
+        return GetCurrentChar.class.hashCode();
+    }
 }

@@ -21,4 +21,17 @@ public class Loop implements Operation {
             }
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Loop loop = (Loop) o;
+        return operations.equals(loop.operations);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(operations);
+    }
 }

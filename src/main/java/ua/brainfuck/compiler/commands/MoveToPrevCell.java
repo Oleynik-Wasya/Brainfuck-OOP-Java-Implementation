@@ -10,4 +10,14 @@ public class MoveToPrevCell implements Operation {
     public void execute(Memory memory) {
         memory.moveToPrevCell();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof MoveToPrevCell;
+    }
+
+    @Override
+    public int hashCode() {
+        return MoveToPrevCell.class.hashCode();
+    }
 }
